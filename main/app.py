@@ -55,7 +55,9 @@ with st.sidebar:
                 with st.spinner("파일 업로드 중..."):
                     try:
                         files = {"file": (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)}
-                        res = requests.post(f"{BASE_URL}/files", files=files)
+                        data = {"session_id": st.session_state.session_id}
+
+                        res = requests.post(f"{BASE_URL}/files", files=files, data=data)
 
                         if res.status_code == 200:
                             data = res.json()
